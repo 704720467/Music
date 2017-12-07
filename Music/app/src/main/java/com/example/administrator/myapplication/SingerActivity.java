@@ -1,7 +1,7 @@
 package com.example.administrator.myapplication;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 
@@ -12,7 +12,8 @@ import java.util.Map;
 
 public class SingerActivity extends AppCompatActivity {
     static int i = 1;
-    private ListView news_list3;
+    private ListView news_list2;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         String songster = "周杰伦";
@@ -20,10 +21,11 @@ public class SingerActivity extends AppCompatActivity {
         String result = bundle.getString("songster");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_singer);
-        news_list3 = (ListView) findViewById(R.id.news_list2);
-        SimpleAdapter adapter = new SimpleAdapter(this,getData(),R.layout.news_list2, new String[]{"singerpic", "singer"}, new int[]{R.id.singerpic, R.id.singer});
-        news_list3.setAdapter(adapter);
+        news_list2 = (ListView) findViewById(R.id.news_list2);
+        SimpleAdapter adapter = new SimpleAdapter(this, getData(), R.layout.list_item2, new String[]{"singerpic", "singer"}, new int[]{R.id.singerpic, R.id.singer});
+        news_list2.setAdapter(adapter);
     }
+
     private List<Map<String, Object>> getData() {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
         Map<String, Object> map = new HashMap<String, Object>();

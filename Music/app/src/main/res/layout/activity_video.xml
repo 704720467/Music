@@ -1,49 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context="com.example.administrator.myapplication.VideoActivity"
-    android:background="@color/white">
-    <VideoView
-        android:layout_width="wrap_content"
-        android:layout_height="200dp"
-        android:id="@+id/videoView" />
-    <Button
-        android:background="@color/pink"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#000000"
+              android:gravity="center"
+              android:orientation="vertical"
+              tools:context="com.example.administrator.myapplication.VideoActivity">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="S  t  a  r  t"
-        android:textSize="20dp"
-        android:textColor="@color/white"
-        android:id="@+id/button_start" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5px"
-        android:background="@color/white">
-    </View>
-    <Button
-        android:background="@color/pink"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="S  t  o  p"
-        android:textSize="20dp"
-        android:textColor="@color/white"
-        android:id="@+id/button_stop"
-        android:layout_gravity="center_horizontal" />
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="5px"
-        android:background="@color/white">
-    </View>
-    <Button
-        android:background="@color/pink"
+        android:layout_gravity="center"
+        android:gravity="center">
+
+        <VideoView
+            android:id="@+id/videoView"
+            android:layout_width="wrap_content"
+            android:layout_height="200dp"
+            android:layout_gravity="center"/>
+    </LinearLayout>
+
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="P  a  u  s  e"
-        android:textSize="20dp"
-        android:textColor="@color/white"
-        android:id="@+id/button_pause"
-        android:layout_gravity="center_horizontal" />
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <Button
+            android:id="@+id/button_start"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/pink"
+            android:text="S  t  a  r  t"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5px"
+            android:background="@color/white">
+        </View>
+
+        <Button
+            android:id="@+id/button_stop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/pink"
+            android:text="S  t  o  p"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5px"
+            android:background="@color/white">
+        </View>
+
+        <Button
+            android:id="@+id/button_pause"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@color/pink"
+            android:text="P  a  u  s  e"
+            android:textColor="@color/white"
+            android:textSize="20dp"/>
+    </LinearLayout>
+
 </LinearLayout>

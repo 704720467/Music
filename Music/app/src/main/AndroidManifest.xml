@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.administrator.myapplication">
+          package="com.example.administrator.myapplication">
 
     <application
         android:allowBackup="true"
@@ -9,23 +9,44 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
+        <!--<activity-->
+        <!--android:name=".SplashScreen"-->
+        <!--android:theme="@style/SplashTheme">-->
+        <!--<intent-filter>-->
+        <!--<action android:name="android.intent.action.MAIN"/>-->
+
+        <!--<category android:name="android.intent.category.LAUNCHER"/>-->
+        <!--</intent-filter>-->
+        <!--</activity>-->
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
+                <action android:name="android.intent.action.MAIN"/>
 
-                <category android:name="android.intent.category.LAUNCHER" />
+                <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
-        <activity android:name=".SplashScreen" />
-        <activity android:name=".Main2Activity" />
-        <activity android:name=".MusicplayerActivity" />
-        <activity android:name=".SingerActivity" />
-        <activity android:name=".VideoActivity" />
+        <activity android:name=".Main2Activity"/>
+        <activity android:name=".MusicplayerActivity"/>
+        <activity
+            android:name=".MusicplayerActivity2"
+            android:theme="@style/MyAppTheme"/>
+        <activity android:name=".SingerActivity"/>
+        <activity
+            android:name=".VideoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
 
         <service
             android:name=".MusicService"
             android:enabled="true"
             android:exported="true"></service>
+
+        <service
+            android:name=".service.MyMusicService"
+            android:enabled="true"
+            android:exported="false"
+            />
     </application>
 
 </manifest>

@@ -1,14 +1,16 @@
 package com.example.administrator.myapplication;
 
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
 import android.support.v4.view.ViewPager;
-import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.util.SparseArray;
 import android.util.TypedValue;
+import android.view.ViewGroup;
 
 import com.astuetz.PagerSlidingTabStrip;
 
@@ -18,17 +20,21 @@ public class Main2Activity extends FragmentActivity {
     private SubFragment3 subFragment3;
     private PagerSlidingTabStrip tabs;
     private DisplayMetrics dm;
+    private ViewPager pager;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main2);
         dm = getResources().getDisplayMetrics();
-        ViewPager pager = (ViewPager)findViewById(R.id.pager);
-        tabs = (PagerSlidingTabStrip)findViewById(R.id.tabs);
+        pager = (ViewPager) findViewById(R.id.pager);
+        tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        pager.setOffscreenPageLimit(3);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
         tabs.setViewPager(pager);
         setTabsValue();
     }
+
     private void setTabsValue() {
         tabs.setShouldExpand(true);
         tabs.setDividerColor(Color.TRANSPARENT);
@@ -38,19 +44,38 @@ public class Main2Activity extends FragmentActivity {
         tabs.setIndicatorColor(Color.parseColor("#45c01a"));
         tabs.setTabBackground(0);
     }
+
     public class MyPagerAdapter extends FragmentStatePagerAdapter {
+        private final String[] titles = {"音乐列表", "排行榜", "我"};
+        SparseArray<Fragment> registeredFragments = new SparseArray<Fragment>();
+
         public MyPagerAdapter(FragmentManager fm) {
             super(fm);
         }
-        private final String[] titles = {"音乐列表", "排行榜", "我"};
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            Fragment fragment = (Fragment) super.instantiateItem(container, position);
+            registeredFragments.put(position, fragment);
+            return fragment;
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            registeredFragments.remove(position);
+            super.destroyItem(container, position, object);
+        }
+
         @Override
         public CharSequence getPageTitle(int position) {
             return titles[position];
         }
+
         @Override
         public int getCount() {
             return titles.length;
         }
+
         @Override
         public Fragment getItem(int position) {
             switch (position) {

@@ -3,7 +3,6 @@ package com.example.administrator.myapplication;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
@@ -20,14 +19,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link SubFragment1.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link SubFragment1#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class SubFragment1 extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -36,7 +27,6 @@ public class SubFragment1 extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
-    //    private OnFragmentInteractionListener mListener;
     private ListView news_list;
     private List<Map<String, Object>> mData;
     private ImageButton play;
@@ -69,8 +59,14 @@ public class SubFragment1 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setContentView(R.layout.fragment_sub_fragment1);
-        news_list = (ListView) getActivity().findViewById(R.id.news_list);
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+
+        View view = inflater.inflate(R.layout.fragment_sub_fragment1, container, false);
+        news_list = (ListView) view.findViewById(R.id.news_list);
         mData = getData();
         MyAdapter adapter = new MyAdapter(this.getActivity());
         news_list.setAdapter(adapter);
@@ -78,52 +74,9 @@ public class SubFragment1 extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        return view;
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sub_fragment1, container, false);
-    }
-
-    // TODO: Rename method, update argument and hook method into UI event
-    //    public void onButtonPressed(Uri uri) {
-    //        if (mListener != null) {
-    //            mListener.onFragmentInteraction(uri);
-    //        }
-    //    }
-
-    //    @Override
-    //    public void onAttach(Context context) {
-    //        super.onAttach(context);
-    //        if (context instanceof OnFragmentInteractionListener) {
-    //            mListener = (OnFragmentInteractionListener) context;
-    //        } else {
-    //            throw new RuntimeException(context.toString()
-    //                    + " must implement OnFragmentInteractionListener");
-    //        }
-    //    }
-
-    //    @Override
-    //    public void onDetach() {
-    //        super.onDetach();
-    //        mListener = null;
-    //    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 
     private List<Map<String, Object>> getData() {
         List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
@@ -223,15 +176,14 @@ public class SubFragment1 extends Fragment {
             holder.singer.setTag(position);
             holder.video.setTag(position);
             play = (ImageButton) convertView.findViewById(R.id.play);
+            play.setTag(holder.title.getText().toString());
             singer = (ImageButton) convertView.findViewById(R.id.singer);
             video = (ImageButton) convertView.findViewById(R.id.video);
             play.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String song = ((TextView) v.findViewById(R.id.title)).getText().toString();
-
-                    Intent intent = new Intent(me.getContext(), MusicplayerActivity.class);
-                    intent.putExtra("song", song);
+                    Intent intent = new Intent(me.getContext(), MusicplayerActivity2.class);
+                    intent.putExtra("song", mData.get(position).get("title").toString());
                     startActivity(intent);
                     showInfo(position);
                 }
@@ -239,7 +191,7 @@ public class SubFragment1 extends Fragment {
             singer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String songster = ((TextView) v.findViewById(R.id.info)).getText().toString();
+                    String songster = mData.get(position).get("info").toString();
 
                     Intent intent = new Intent(me.getContext(), SingerActivity.class);
                     intent.putExtra("songster", songster);
@@ -250,8 +202,7 @@ public class SubFragment1 extends Fragment {
             video.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String vf = ((TextView) v.findViewById(R.id.title)).getText().toString();
-
+                    String vf = mData.get(position).get("title").toString();
                     Intent intent = new Intent(me.getContext(), VideoActivity.class);
                     intent.putExtra("vf", vf);
                     startActivity(intent);
@@ -262,11 +213,18 @@ public class SubFragment1 extends Fragment {
         }
     }
 
-    public void showInfo(int position) {
-        new AlertDialog.Builder(this.getActivity()).setTitle(mData.get(position).get("title").toString()).setMessage(mData.get(position).get("info").toString()).setPositiveButton("确定", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-            }
-        }).show();
+    public void showInfo(final int position) {
+        new AlertDialog.Builder(this.getActivity())//
+                .setTitle(mData.get(position).get("title").toString())//
+                .setMessage(mData.get(position).get("info").toString())//
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //
+                        //                        Intent intent = new Intent(me.getContext(), mClass);
+                        //                        intent.putExtra("song", mData.get(position).get("title").toString());
+                        //                        startActivity(intent);
+                    }
+                }).show();
     }
 }

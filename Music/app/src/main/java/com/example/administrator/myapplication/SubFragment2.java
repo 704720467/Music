@@ -1,6 +1,5 @@
 package com.example.administrator.myapplication;
 
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -40,14 +39,6 @@ public class SubFragment2 extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getActivity().setContentView(R.layout.fragment_sub_fragment2);
-        news_list2 = (ListView) getActivity().findViewById(R.id.news_list3);
-        SimpleAdapter adapter = new SimpleAdapter(this.getActivity(), getData(), R.layout.news_list3, new String[]{"type", "title1", "title2", "title3"}, new int[]{R.id.type, R.id.title1, R.id.title2, R.id.title3});
-        news_list2.setAdapter(adapter);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     private List<Map<String, Object>> getData() {
@@ -76,32 +67,14 @@ public class SubFragment2 extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_sub_fragment2, container, false);
-    }
-    // TODO: Rename method, update argument and hook method into UI event
-    //    public void onButtonPressed(Uri uri) {
-    //        if (mListener != null) {
-    //            mListener.onFragmentInteraction(uri);
-    //        }
-    //    }
-    //    @Override
-    //    public void onAttach(Context context) {
-    //        super.onAttach(context);
-    //        if (context instanceof OnFragmentInteractionListener) {
-    //            mListener = (OnFragmentInteractionListener) context;
-    //        } else {
-    //            throw new RuntimeException(context.toString()
-    //                    + " must implement OnFragmentInteractionListener");
-    //        }
-    //    }
-    //    @Override
-    //    public void onDetach() {
-    //        super.onDetach();
-    //        mListener = null;
-    //    }
-
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        View view = inflater.inflate(R.layout.fragment_sub_fragment2, container, false);
+        news_list2 = (ListView) view.findViewById(R.id.news_list3);
+        SimpleAdapter adapter = new SimpleAdapter(this.getActivity(), getData(), R.layout.list_item3, new String[]{"type", "title1", "title2", "title3"}, new int[]{R.id.type, R.id.title1, R.id.title2, R.id.title3});
+        news_list2.setAdapter(adapter);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
+        return view;
     }
 }

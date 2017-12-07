@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="80dp"
+    android:layout_marginTop="10dp"
+    android:background="@color/halfwhite"
+    tools:context="com.example.administrator.myapplication.MusicplayerActivity">
+    <ImageView
+        android:id="@+id/musicpic"
+        android:layout_width="80dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/yinfu" />
+    <TextView
+        android:id="@+id/musicname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/musicpic"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        android:maxLines="2"
+        android:text="晴天"
+        android:textColor="@color/pink"
+        android:textSize="50sp" />
+    <TextView
+        android:id="@+id/musicsinger"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/musicname"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="35dp"
+        android:text="周杰伦"
+        android:textColor="@color/pink"
+        android:textSize="30sp" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageButton
+            android:id="@+id/start"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="185dp"
+            app:srcCompat="@drawable/start"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true" />
+        <ImageButton
+            android:id="@+id/pause"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="185dp"
+            app:srcCompat="@drawable/pause"
+            android:layout_toRightOf="@+id/start" />
+        <ImageButton
+            android:id="@+id/stop"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="185dp"
+            app:srcCompat="@drawable/stop"
+            android:layout_toRightOf="@+id/pause"
+            android:layout_alignParentEnd="true" />
+    </LinearLayout>
+</RelativeLayout>

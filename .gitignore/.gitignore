@@ -1,0 +1,14 @@
+*.apk
+*.iml
+Music/.gradle
+Music/local.properties
+Music/.idea/workspace.xml
+Music/.idea/libraries
+Music/.DS_Store
+Music/build
+Music/*/build
+Music/.idea/
+Music/captures
+Music/.externalNativeBuild
+Music/app/.bugtags.log
+Music/bugtags.log

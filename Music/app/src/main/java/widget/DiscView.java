@@ -60,6 +60,8 @@ public class DiscView extends RelativeLayout {
 
     private int mScreenWidth, mScreenHeight;
 
+    private int currentIteam = 0;
+
     /*唱针当前所处的状态*/
     private enum NeedleAnimatorStatus {
         /*移动时：从唱盘往远处移动*/
@@ -85,8 +87,10 @@ public class DiscView extends RelativeLayout {
     public interface IPlayInfo {
         /*用于更新标题栏变化*/
         public void onMusicInfoChanged(String musicName, String musicAuthor);
+
         /*用于更新背景图片*/
         public void onMusicPicChanged(int musicPicRes);
+
         /*用于更新音乐播放状态*/
         public void onMusicChanged(MusicChangedStatus musicChangedStatus);
     }
@@ -133,7 +137,8 @@ public class DiscView extends RelativeLayout {
         mVpContain.setOverScrollMode(View.OVER_SCROLL_NEVER);
         mVpContain.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             int lastPositionOffsetPixels = 0;
-            int currentItem = 0;
+//            int currentItem = 0;
+
             @Override
             public void onPageScrolled(int position, float positionOffset, int
                     positionOffsetPixels) {
@@ -160,12 +165,14 @@ public class DiscView extends RelativeLayout {
             public void onPageSelected(int position) {
                 resetOtherDiscAnimation(position);
                 notifyMusicPicChanged(position);
-                if (position > currentItem) {
+                if (position > currentIteam) {
                     notifyMusicStatusChanged(MusicChangedStatus.NEXT);
-                } else {
+                } else if (position < currentIteam) {
                     notifyMusicStatusChanged(MusicChangedStatus.LAST);
+                } else {
+                    notifyMusicStatusChanged(MusicChangedStatus.PLAY);
                 }
-                currentItem = position;
+                currentIteam = position;
             }
 
             @Override
@@ -325,7 +332,7 @@ public class DiscView extends RelativeLayout {
 
         Bitmap bitmapDisc = Bitmap.createScaledBitmap(BitmapFactory.decodeResource(getResources(), R
                 .drawable.ic_disc), discSize, discSize, false);
-        Bitmap bitmapMusicPic = getMusicPicBitmap(musicPicSize,musicPicRes);
+        Bitmap bitmapMusicPic = getMusicPicBitmap(musicPicSize, musicPicRes);
         BitmapDrawable discDrawable = new BitmapDrawable(bitmapDisc);
         RoundedBitmapDrawable roundMusicDrawable = RoundedBitmapDrawableFactory.create
                 (getResources(), bitmapMusicPic);
@@ -352,7 +359,7 @@ public class DiscView extends RelativeLayout {
         BitmapFactory.Options options = new BitmapFactory.Options();
         options.inJustDecodeBounds = true;
 
-        BitmapFactory.decodeResource(getResources(),musicPicRes,options);
+        BitmapFactory.decodeResource(getResources(), musicPicRes, options);
         int imageWidth = options.outWidth;
 
         int sample = imageWidth / musicPicSize;
@@ -370,9 +377,9 @@ public class DiscView extends RelativeLayout {
                 musicPicRes, options), musicPicSize, musicPicSize, true);
     }
 
-    public void setMusicDataList(List<MusicData> musicDataList) {
+    public void setMusicDataList(List<MusicData> musicDataList, int currentPosition) {
         if (musicDataList.isEmpty()) return;
-
+        this.currentIteam = currentPosition;
         mDiscLayouts.clear();
         mMusicDatas.clear();
         mDiscAnimators.clear();
@@ -390,12 +397,15 @@ public class DiscView extends RelativeLayout {
             mDiscLayouts.add(discLayout);
         }
         mViewPagerAdapter.notifyDataSetChanged();
+        mVpContain.setCurrentItem(currentIteam);
 
-        MusicData musicData = mMusicDatas.get(0);
+        MusicData musicData = mMusicDatas.get(currentIteam);
         if (mIPlayInfo != null) {
             mIPlayInfo.onMusicInfoChanged(musicData.getMusicName(), musicData.getMusicAuthor());
             mIPlayInfo.onMusicPicChanged(musicData.getMusicPicRes());
         }
+        if (currentIteam == 0)
+            notifyMusicStatusChanged(MusicChangedStatus.PLAY);
     }
 
     private ObjectAnimator getDiscObjectAnimator(ImageView disc, final int i) {
@@ -444,7 +454,7 @@ public class DiscView extends RelativeLayout {
          * */
         if (musicStatus == MusicStatus.STOP) {
             notifyMusicStatusChanged(MusicChangedStatus.STOP);
-        }else if (musicStatus == MusicStatus.PAUSE) {
+        } else if (musicStatus == MusicStatus.PAUSE) {
             notifyMusicStatusChanged(MusicChangedStatus.PAUSE);
         }
     }

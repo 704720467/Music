@@ -67,6 +67,7 @@ public class MyMusicService extends Service implements MediaPlayer.OnCompletionL
         if (intent == null)
             return;
         List<MusicData> musicDatas = (List<MusicData>) intent.getSerializableExtra(MusicplayerActivity2.PARAM_MUSIC_LIST);
+        mCurrentMusicIndex = intent.getIntExtra(MusicplayerActivity2.PARAM_MUSIC_POITION, 0);
         mMusicDatas.addAll(musicDatas);
     }
 

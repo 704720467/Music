@@ -48,8 +48,10 @@ public class MusicplayerActivity2 extends AppCompatActivity implements DiscView.
     private TextView mTvMusicDuration, mTvTotalMusicDuration;
     private BgAniRelativeLayout mRootLayout;
     public static final int MUSIC_MESSAGE = 0;
+    private int currentPosition = 0;
 
     public static final String PARAM_MUSIC_LIST = "PARAM_MUSIC_LIST";
+    public static final String PARAM_MUSIC_POITION = "PARAM_MUSIC_POITION";
 
     private Handler mMusicHandler = new Handler() {
         @Override
@@ -123,7 +125,7 @@ public class MusicplayerActivity2 extends AppCompatActivity implements DiscView.
 
         mTvMusicDuration.setText(duration2Time(0));
         mTvTotalMusicDuration.setText(duration2Time(0));
-        mDisc.setMusicDataList(mMusicDatas);
+        mDisc.setMusicDataList(mMusicDatas, getIntent().getIntExtra(PARAM_MUSIC_POITION, 0));
     }
 
     private void stopUpdateSeekBarProgree() {
@@ -145,7 +147,7 @@ public class MusicplayerActivity2 extends AppCompatActivity implements DiscView.
 
     private void initMusicDatas() {
         MusicData musicData1 = new MusicData(R.raw.qingtian, R.raw.ic_music1, "晴天", "三亩地");
-        MusicData musicData2 = new MusicData(R.raw.zhizu, R.raw.ic_music1, "知足", "YANI");
+        MusicData musicData2 = new MusicData(R.raw.zhizu, R.raw.ic_music1, "知足", "五月天");
         MusicData musicData3 = new MusicData(R.raw.qingge, R.raw.ic_music1, "情歌", "Hans Zimmer");
         MusicData musicData4 = new MusicData(R.raw.xiaoxingyun, R.raw.ic_music1, "小幸运", "Hans Zimmer");
         MusicData musicData5 = new MusicData(R.raw.zhuiguangzhe, R.raw.ic_music1, "追光者", "Hans Zimmer");
@@ -160,6 +162,7 @@ public class MusicplayerActivity2 extends AppCompatActivity implements DiscView.
 
         Intent intent = new Intent(this, MyMusicService.class);
         intent.putExtra(PARAM_MUSIC_LIST, (Serializable) mMusicDatas);
+        intent.putExtra(PARAM_MUSIC_POITION, getIntent().getIntExtra(PARAM_MUSIC_POITION, 0));
         startService(intent);
     }
 
@@ -395,5 +398,11 @@ public class MusicplayerActivity2 extends AppCompatActivity implements DiscView.
     protected void onDestroy() {
         super.onDestroy();
         LocalBroadcastManager.getInstance(this).unregisterReceiver(mMusicReceiver);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        //play();
     }
 }

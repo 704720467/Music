@@ -2,6 +2,7 @@ package com.example.administrator.myapplication;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,19 +10,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
-public class SubFragment3 extends Fragment {
+public class SubFragment3 extends Fragment implements View.OnClickListener {
     private Button logindemo;
     private Button signupdemo;
     private EditText username;
     private EditText password;
 
-    public void onLoginClick(View v) {
-        String msg = "您输入的用户名是" + username.getText() + ",密码是" + password.getText();
-        Toast.makeText(SubFragment3.this.getActivity(), msg, Toast.LENGTH_SHORT).show();
-    }
-
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -29,21 +23,10 @@ public class SubFragment3 extends Fragment {
     private String mParam1;
     private String mParam2;
 
-    //    private OnFragmentInteractionListener mListener;
-
     public SubFragment3() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment SubFragment3.
-     */
-    // TODO: Rename and change types and number of parameters
     public static SubFragment3 newInstance(String param1, String param2) {
         SubFragment3 fragment = new SubFragment3();
         Bundle args = new Bundle();
@@ -64,6 +47,32 @@ public class SubFragment3 extends Fragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_sub_fragment3, container, false);
+        View view = inflater.inflate(R.layout.fragment_sub_fragment3, container, false);
+        username = (EditText) view.findViewById(R.id.username);
+        password = (EditText) view.findViewById(R.id.passward);
+        view.findViewById(R.id.login_button).setOnClickListener(this);
+        view.findViewById(R.id.signup_button).setOnClickListener(this);
+        return view;
+    }
+
+    @Override
+    public void onClick(View v) {
+        String msg = "";
+        switch (v.getId()) {
+            case R.id.login_button:
+                if (TextUtils.isEmpty(username.getText()) || TextUtils.isEmpty(password.getText()))
+                    msg = "用户或者密码不能为空！";
+                else
+                    msg = "登陆成功！\n用户名：" + username.getText() + "\n密    码：" + password.getText();
+                break;
+            case R.id.signup_button:
+                if (TextUtils.isEmpty(username.getText()) || TextUtils.isEmpty(password.getText()))
+                    msg = "用户或者密码不能为空！";
+                else
+                    msg = "注册成功！\n用户名：" + username.getText() + "\n密    码：" + password.getText();
+                break;
+        }
+        if (!TextUtils.isEmpty(msg))
+            Toast.makeText(SubFragment3.this.getActivity(), msg, Toast.LENGTH_SHORT).show();
     }
 }

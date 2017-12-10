@@ -184,6 +184,7 @@ public class SubFragment1 extends Fragment {
                 public void onClick(View v) {
                     Intent intent = new Intent(me.getContext(), MusicplayerActivity2.class);
                     intent.putExtra("song", mData.get(position).get("title").toString());
+                    intent.putExtra(MusicplayerActivity2.PARAM_MUSIC_POITION, position);
                     startActivity(intent);
                     showInfo(position);
                 }

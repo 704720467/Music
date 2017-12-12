@@ -182,49 +182,51 @@ public class SubFragment1 extends Fragment {
             play.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(me.getContext(), MusicplayerActivity2.class);
-                    intent.putExtra("song", mData.get(position).get("title").toString());
-                    intent.putExtra(MusicplayerActivity2.PARAM_MUSIC_POITION, position);
-                    startActivity(intent);
-                    showInfo(position);
+                    showInfo(v.getId(), position);
                 }
             });
             singer.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String songster = mData.get(position).get("info").toString();
-
-                    Intent intent = new Intent(me.getContext(), SingerActivity.class);
-                    intent.putExtra("songster", songster);
-                    startActivity(intent);
-                    showInfo(position);
+                    showInfo(v.getId(), position);
                 }
             });
             video.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    String vf = mData.get(position).get("title").toString();
-                    Intent intent = new Intent(me.getContext(), VideoActivity.class);
-                    intent.putExtra("vf", vf);
-                    startActivity(intent);
-                    showInfo(position);
+                    showInfo(v.getId(), position);
                 }
             });
             return convertView;
         }
     }
 
-    public void showInfo(final int position) {
+    public void showInfo(final int viewId, final int position) {
         new AlertDialog.Builder(this.getActivity())//
                 .setTitle(mData.get(position).get("title").toString())//
                 .setMessage(mData.get(position).get("info").toString())//
                 .setPositiveButton("确定", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //
-                        //                        Intent intent = new Intent(me.getContext(), mClass);
-                        //                        intent.putExtra("song", mData.get(position).get("title").toString());
-                        //                        startActivity(intent);
+                        switch (viewId) {
+                            case R.id.video:
+                                String vf = mData.get(position).get("title").toString();
+                                Intent intent = new Intent(me.getContext(), VideoActivity.class);
+                                intent.putExtra("vf", vf);
+                                startActivity(intent);
+                                break;
+                            case R.id.singer:
+                                Intent intent1 = new Intent(me.getContext(), SingerActivity.class);
+                                intent1.putExtra("position", position);
+                                startActivity(intent1);
+                                break;
+                            case R.id.play:
+                                Intent intent2 = new Intent(me.getContext(), MusicplayerActivity2.class);
+                                intent2.putExtra("song", mData.get(position).get("title").toString());
+                                intent2.putExtra(MusicplayerActivity2.PARAM_MUSIC_POITION, position);
+                                startActivity(intent2);
+                                break;
+                        }
                     }
                 }).show();
     }

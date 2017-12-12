@@ -1,13 +1,5 @@
 [
     {
-        "merged": "F:\\zpWorkSpace\\Music\\Music\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\background_tab.xml",
-        "source": "F:\\zpWorkSpace\\Music\\Music\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\background_tab.xml"
-    },
-    {
-        "merged": "C:\\Users\\admin\\Desktop\\Music\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\background_tab.xml",
-        "source": "C:\\Users\\admin\\Desktop\\Music\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\background_tab.xml"
-    },
-    {
         "merged": "E:\\AndroidStudio\\WorkSpaces\\Music\\Music\\library\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\background_tab.xml",
         "source": "E:\\AndroidStudio\\WorkSpaces\\Music\\Music\\library\\build\\intermediates\\bundles\\debug\\res\\drawable\\background_tab.xml"
     }

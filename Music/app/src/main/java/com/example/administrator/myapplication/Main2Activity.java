@@ -31,6 +31,7 @@ public class Main2Activity extends FragmentActivity {
         tabs = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         pager.setOffscreenPageLimit(3);
         pager.setAdapter(new MyPagerAdapter(getSupportFragmentManager()));
+        tabs.setShouldExpand(true);
         tabs.setViewPager(pager);
         setTabsValue();
     }
